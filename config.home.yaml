@@ -1,0 +1,53 @@
+# Home laptop (Arch Linux, GTX 1650). Use with:  python agent/main.py --config config.home.yaml
+# Serial ports on Linux are /dev/ttyACM* (Uno, Pico) or /dev/ttyUSB* (CH340 clones).
+# Run `ls /dev/ttyACM* /dev/ttyUSB*` with only one board plugged in to see which port it gets.
+profile: home
+profiles:
+  office:
+    model: llama3.2:3b
+    whisper: base.en
+  home:
+    model: llama3.2:3b      # or smart-llama after you import the fine-tuned model
+    whisper: small.en
+
+tts:
+  rate: 175
+
+default_device: esp32
+
+devices:
+  esp32:
+    aliases: ["esp 32", "e s p 32"]
+    transport: http
+    address: http://192.168.1.50
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+
+  esp01s:
+    aliases: ["esp 01", "esp zero one", "esp 01 s"]
+    transport: http
+    address: http://192.168.1.51
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+
+  arduino:
+    aliases: ["uno", "nano"]
+    transport: serial
+    port: /dev/ttyACM0
+    baud: 115200
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+      pwm:   {kind: output, type: pwm, min: 0, max: 255}
+
+  rp2040:
+    aliases: ["pico", "raspberry pi pico", "rp 2040"]
+    transport: serial
+    port: /dev/ttyACM1
+    baud: 115200
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+      pwm:   {kind: output, type: pwm, min: 0, max: 255}
