@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.claude/
+*.gguf
+training/Modelfile
+outputs/
+# intermediate dataset parts; rebuild with: python training/build_dataset.py
+training/hardware_*.jsonl
+training/personal_*.jsonl

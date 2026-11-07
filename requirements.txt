@@ -1,0 +1,8 @@
+ollama>=0.4
+pyyaml
+requests
+pyserial
+numpy
+sounddevice
+faster-whisper
+pyttsx3

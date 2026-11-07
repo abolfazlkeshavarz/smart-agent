@@ -1,0 +1,55 @@
+# ---------- LLM / voice profiles ----------
+# office = no GPU (CPU only), home = GTX 1650 laptop (4 GB VRAM).
+# Ollama uses the GPU automatically when one is available.
+# Note: Ollama's gemma3 build has no tool-calling support, so default to llama3.2.
+profile: office
+profiles:
+  office:
+    model: llama3.2:3b
+    whisper: base.en        # CPU, int8
+  home:
+    model: llama3.2:3b      # 4 GB VRAM fits ~3-4B models; try qwen2.5:3b too
+    whisper: small.en
+
+tts:
+  rate: 175                 # words per minute (pyttsx3)
+
+# ---------- Devices ----------
+default_device: esp32
+
+devices:
+  esp32:
+    aliases: ["esp 32", "e s p 32"]
+    transport: http
+    address: http://192.168.1.50        # set after flashing; printed on the ESP's serial monitor
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+
+  esp01s:
+    aliases: ["esp 01", "esp zero one", "esp 01 s"]
+    transport: http
+    address: http://192.168.1.51
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+
+  arduino:
+    aliases: ["uno", "nano"]
+    transport: serial
+    port: COM3                          # check Device Manager
+    baud: 115200
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+      pwm:   {kind: output, type: pwm, min: 0, max: 255}
+
+  rp2040:
+    aliases: ["pico", "raspberry pi pico", "rp 2040"]
+    transport: serial
+    port: COM5
+    baud: 115200
+    channels:
+      led:   {kind: output, type: digital}
+      relay: {kind: output, type: digital}
+      pwm:   {kind: output, type: pwm, min: 0, max: 255}
